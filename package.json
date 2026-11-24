@@ -1,0 +1,9 @@
+{
+  "name": "nyay-saathi",
+  "version": "1.0.0",
+  "description": "AI Nyay Saathi - Indian Legal Redressal and Drafting Platform",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  }
+}

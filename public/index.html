@@ -1,0 +1,877 @@
+<!doctype html>
+<html lang="hi"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AI Nyay Saathi – Bolo, complaint ready</title>
+<link href="https://fonts.googleapis.com/css2?family=Hind:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#e8f0ea;--card:#f7faf7;--ink:#142033;--mut:#52607a;--seal:#b3261e;--ind:#27348b;--line:#c3d3c8;--paper:#fffef8;--pink:#1a1a1a;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1a17;--card:#16241f;--ink:#e9f0ec;--mut:#9fb0a8;--seal:#ff7a6e;--ind:#a9b4ff;--line:#2a3d36}}
+:root[data-theme="dark"]{--bg:#0f1a17;--card:#16241f;--ink:#e9f0ec;--mut:#9fb0a8;--seal:#ff7a6e;--ind:#a9b4ff;--line:#2a3d36}
+*,*:before,*:after{box-sizing:inherit}
+html{scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.65 Hind,system-ui,sans-serif}
+.w{max-width:1040px;margin:0 auto;padding:0 20px}
+nav{display:flex;justify-content:space-between;align-items:center;padding:18px 0}
+.logo{font-weight:700;font-size:20px;letter-spacing:.2px}
+.logo i{font-style:normal;color:var(--seal)}
+button{font:inherit;cursor:pointer;color:inherit}
+.b{background:var(--ind);color:#fff;border:0;border-radius:4px;padding:11px 22px;font-weight:600}
+:root[data-theme="dark"] .b{color:#101530}
+.b.g{background:none;color:var(--ink);border:1.5px solid var(--line)}
+.b:focus-visible,button:focus-visible,textarea:focus-visible,input:focus-visible{outline:3px solid var(--seal);outline-offset:2px}
+.hero{display:grid;grid-template-columns:1.15fr 1fr;gap:40px;align-items:center;padding:34px 0 54px}
+h1{font-size:clamp(34px,5.6vw,58px);line-height:1.12;margin:0 0 18px;font-weight:700}
+h1 span{display:block;color:var(--seal)}
+.sub{color:var(--mut);max-width:34em;margin:0 0 24px}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px;font-size:14px;color:var(--mut)}
+.tags b{border:1px solid var(--line);padding:2px 10px;border-radius:99px;font-weight:500}
+.mini{background:var(--paper);color:var(--pink);border:1px solid var(--line);padding:26px 26px 30px;font-size:14px;line-height:1.7;position:relative;transform:rotate(1.6deg);box-shadow:0 0 0 6px color-mix(in srgb,var(--ind) 10%,transparent)}
+.mini small{color:#666}
+.seal{position:absolute;right:16px;bottom:-22px;width:92px;height:92px;border:3px double var(--seal);border-radius:50%;color:var(--seal);display:grid;place-items:center;text-align:center;font-weight:700;font-size:13px;line-height:1.2;transform:rotate(-14deg);background:var(--paper);animation:st .7s .4s both cubic-bezier(.3,1.6,.5,1)}
+@keyframes st{from{transform:rotate(-14deg) scale(2.4);opacity:0}}
+@media(prefers-reduced-motion:reduce){.seal{animation:none}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:26px}
+#app{margin-bottom:56px}
+.dots{display:flex;gap:6px;margin-bottom:22px}
+.dot{flex:1;height:5px;border-radius:3px;background:var(--line)}
+.dot.on{background:var(--ind)}
+.step{display:none}.step.on{display:block}
+h2{font-size:26px;margin:0 0 6px}
+.hint{color:var(--mut);margin:0 0 16px}
+textarea,input{width:100%;font:inherit;color:var(--ink);background:var(--bg);border:1.5px solid var(--line);border-radius:4px;padding:11px 13px}
+textarea{min-height:130px;resize:vertical}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;align-items:center}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.chips button{background:none;border:1.5px solid var(--line);border-radius:99px;padding:5px 14px;font-size:15px}
+.chips button.on{border-color:var(--ind);background:color-mix(in srgb,var(--ind) 14%,transparent);font-weight:600}
+#mic.rec{background:var(--seal);color:#fff;border-color:var(--seal)}
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+label{font-size:15px;font-weight:600;display:block;margin-bottom:3px}
+.res{display:grid;grid-template-columns:1.35fr 1fr;gap:22px;align-items:start}
+#paper{background:var(--paper);color:var(--pink);border:1px solid var(--line);padding:28px;white-space:pre-wrap;font:15px/1.75 Georgia,"Times New Roman",serif;min-height:420px;outline:none}
+.side h3{margin:0 0 6px;font-size:18px}
+.side ul{margin:0 0 20px;padding-left:20px}
+.side li{margin-bottom:6px}
+.side li span{display:block;font-size:15px;color:var(--mut)}
+.side a,.help a{color:var(--ind);font-weight:600}
+.how{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:46px}
+.how div{border-left:3px solid var(--seal);padding-left:14px}
+.how b{display:block;font-size:19px}
+.how p{margin:2px 0 0;color:var(--mut);font-size:15px}
+.help{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:16px 0 46px}
+.help div{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:14px;font-size:15px}
+.help b{display:block;font-size:26px;color:var(--ind)}
+footer{border-top:1px solid var(--line);padding:22px 0 40px;color:var(--mut);font-size:14px}
+#toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,30px);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:4px;opacity:0;transition:.25s;pointer-events:none;z-index:9}
+#toast.on{opacity:1;transform:translate(-50%,0)}
+body{background-image:radial-gradient(60rem 30rem at 88% -6%,color-mix(in srgb,var(--ind) 15%,transparent),transparent),radial-gradient(36rem 22rem at -8% 34%,color-mix(in srgb,var(--seal) 9%,transparent),transparent);background-repeat:no-repeat}
+.nl{display:flex;align-items:center;gap:18px}.nl a{color:var(--mut);text-decoration:none;font-weight:500}.nl a:hover{color:var(--ink)}
+.sec{margin:64px 0 0}.sec h2{font-size:clamp(26px,4vw,36px);line-height:1.2;margin-bottom:18px}
+.cats{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.cats button{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:18px 14px;text-align:left;transition:border-color .2s,transform .2s}
+.cats button:hover{border-color:var(--ind);transform:translateY(-3px)}
+.cats span{font-size:30px;display:block}.cats b{display:block;margin-top:6px;line-height:1.3}.cats small{display:block;margin-top:4px;color:var(--mut);font-size:13px;line-height:1.35}
+.bento{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.bento>div{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:22px}
+.bento .w2{grid-column:span 2}.bento b{display:block;font-size:19px;margin-bottom:4px}.bento p{margin:0;color:var(--mut);font-size:15px}
+.wave{display:flex;gap:4px;align-items:center;height:44px;margin-top:16px}
+.wave i{width:5px;height:10px;background:var(--seal);border-radius:3px;animation:wv 1.1s ease-in-out infinite}
+.wave i:nth-child(odd){animation-delay:.25s}.wave i:nth-child(3n){animation-delay:.5s}.wave i:nth-child(4n){animation-delay:.7s}
+@keyframes wv{50%{height:40px}}
+@media(prefers-reduced-motion:reduce){.wave i{animation:none;height:22px}}
+select{width:100%;font:inherit;color:var(--ink);background:var(--bg);border:1.5px solid var(--line);border-radius:4px;padding:11px 13px}
+details{border-top:1px solid var(--line);padding:14px 0}details:last-of-type{border-bottom:1px solid var(--line)}
+summary{cursor:pointer;font-weight:600;font-size:18px}details p{margin:8px 0 0;color:var(--mut)}
+.sf{background:color-mix(in srgb,var(--seal) 14%,transparent);border:1.5px solid var(--seal);border-radius:4px;padding:12px 16px;margin-bottom:18px;font-weight:600}
+.dx{white-space:pre-wrap;margin-top:14px;padding:16px;border-left:3px solid var(--ind);background:var(--bg)}
+.b.v{background:var(--seal);color:#fff}
+.b.wa{background:#25d366;color:#fff;border-color:#25d366}
+.scam-box{background:color-mix(in srgb,var(--seal) 8%,transparent);border:2px dashed var(--seal);border-radius:6px;padding:18px;margin-top:18px}
+.scam-badge{display:inline-block;padding:4px 10px;border-radius:99px;font-weight:700;font-size:13px;letter-spacing:.3px;margin-bottom:10px}
+.scam-badge.danger{background:var(--seal);color:#fff}
+.scam-badge.safe{background:#2e7d32;color:#fff}
+.annex-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:12px;margin-top:14px}
+.annex-card{background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:10px;font-size:13px;display:flex;flex-direction:column;gap:6px}
+.annex-card img{width:100%;height:100px;object-fit:cover;border-radius:4px}
+[hidden], .wa-modal[hidden], .scam-box[hidden], #scamBox[hidden], #locOut[hidden], #annexList[hidden], #annexBar[hidden], #printBundleArea[hidden] {
+  display: none !important;
+  pointer-events: none !important;
+  visibility: hidden !important;
+}
+.wa-modal{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.72);display:flex;align-items:center;justify-content:center;z-index:99999;padding:14px}
+.wa-modal[hidden]{display:none!important;pointer-events:none!important;visibility:hidden!important}
+.wa-phone{background:#111b21;color:#e9edef;width:100%;max-width:390px;height:580px;border-radius:18px;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 12px 40px rgba(0,0,0,.5)}
+.wa-hdr{background:#202c33;padding:12px 16px;display:flex;align-items:center;gap:12px}
+.wa-hdr b{font-size:16px}
+.wa-chat{flex:1;padding:14px;overflow-y:auto;background:#0b141a;display:flex;flex-direction:column;gap:10px;font-size:14px}
+.wa-msg{background:#202c33;padding:8px 12px;border-radius:8px;max-width:82%;align-self:flex-start;line-height:1.45}
+.wa-msg.me{background:#005c4b;align-self:flex-end}
+.wa-inp{background:#202c33;padding:10px;display:flex;gap:8px;align-items:center}
+.wa-inp input{background:#2a3942;border:0;color:#fff;border-radius:24px;padding:8px 14px}
+@media(max-width:820px){.hero,.res,.how,.bento{grid-template-columns:1fr}.bento .w2{grid-column:auto}.cats{grid-template-columns:1fr 1fr}.nl a{display:none}.help{grid-template-columns:1fr 1fr}.fg{grid-template-columns:1fr}.mini{transform:none;margin-bottom:22px}}
+@media print{
+  @page{margin:18mm}
+  body{background:#fff;color:#000;font-size:12pt}
+  nav,.hero,.dots,#s1,#s2,.row,footer,.side,.how,#types,#features,.help,#faq,h2,.hint,.card:not(#app),.annex-box{display:none!important}
+  .w{max-width:100%;margin:0;padding:0}
+  .card{border:0;padding:0;background:#fff}
+  .step#s3{display:block!important}
+  .res{display:block}
+  #paper{border:0;padding:0;color:#000;background:#fff;font-size:12pt;line-height:1.6}
+  .print-page-break{page-break-before:always}
+}
+</style></head><body>
+<div class="w">
+<nav>
+  <div class="logo">⚖ Nyay <i>Saathi</i></div>
+  <div class="nl">
+    <a href="#features">Features</a>
+    <a href="#types">Problems</a>
+    <a href="#locCard">Near Me</a>
+    <a href="#faq">FAQ</a>
+    <button class="b g" id="langToggleBtn" style="padding:6px 14px;font-size:14px;font-weight:600">🌐 English</button>
+    <button class="b g" id="waSimBtn" style="padding:6px 14px;font-size:14px">📲 WhatsApp Bot</button>
+    <button class="b g" id="th" aria-label="Theme badlo">◐</button>
+  </div>
+</nav>
+
+<section class="hero">
+<div>
+<h1 id="heroH1">Apni problem bolo.<span>60 second mein complaint ready.</span></h1>
+<p class="sub" id="heroSub">Voice ya text mein batao kya hua. Nyay Saathi 10 Indian bhashaon mein kanoon pehchanta hai aur court-ready draft, evidence bundle aur roadmap deta hai.</p>
+<div class="row" style="margin-top:0">
+  <button class="b v" id="hv">🎤 Bolke shuru karo</button>
+  <button class="b g" id="btnWrite" onclick="document.getElementById('app').scrollIntoView()">Likhke banao</button>
+  <button class="b g" id="dm">▶ 30 second demo</button>
+</div>
+<div class="tags">
+  <b>10 Indian Languages (हिंदी, தமிழ், मराठी...)</b>
+  <b>BNS / BNSS 2024</b>
+  <b>Evidence Bundle Maker</b>
+  <b>WhatsApp Notice</b>
+  <b>Scam Inspector</b>
+</div>
+</div>
+<div class="mini" aria-hidden="true"><small>Sample draft</small><br>To, The President,<br>District Consumer Disputes Redressal Commission<br><b>Subject: Complaint under Section 35, Consumer Protection Act, 2019</b><br>I, Ramesh Kumar, purchased a smartphone for ₹40,000. The seller refused a refund despite a manufacturing defect…<div class="seal">READY<br>TO FILE</div></div>
+</section>
+
+<section class="card" id="app">
+<div class="sf" id="sf" role="alert" hidden></div>
+<div class="dots"><span class="dot on"></span><span class="dot"></span><span class="dot"></span></div>
+
+<div class="step on" id="s1">
+<h2 id="s1H2">Kya hua? Apne shabdon mein batao</h2>
+<p class="hint" id="s1Hint">Hindi, English, Marathi, Tamil, Bengali, Telugu ya Hinglish — mic se apni bhasha mein bolo.</p>
+
+<textarea id="story" placeholder="Jaise: Mere landlord ne 30000 ka security deposit wapas nahi diya… ya koi suspicious notice aaya ho to yahan likho"></textarea>
+<div class="chips" id="ex"></div>
+
+<div class="row">
+  <button class="b" id="n1">Aage badho</button>
+  <button class="b g" id="mic">🎤 Bolke batao</button>
+  <!-- REGIONAL VOICE LANGUAGE SELECTOR -->
+  <select id="vLang" style="width:auto;padding:10px 14px;border-radius:4px" aria-label="Voice Language">
+    <option value="hi-IN" selected>🇮🇳 हिंदी (Hindi)</option>
+    <option value="en-IN">English (India)</option>
+    <option value="mr-IN">मराठी (Marathi)</option>
+    <option value="ta-IN">தமிழ் (Tamil)</option>
+    <option value="te-IN">తెలుగు (Telugu)</option>
+    <option value="bn-IN">বাংলা (Bengali)</option>
+    <option value="gu-IN">ગુજરાતી (Gujarati)</option>
+    <option value="pa-IN">ਪੰਜਾਬੀ (Punjabi)</option>
+    <option value="kn-IN">ಕನ್ನಡ (Kannada)</option>
+    <option value="ml-IN">മലയാളം (Malayalam)</option>
+  </select>
+  <button class="b g" id="scamCheckBtn" style="color:var(--seal);border-color:var(--seal)">🚨 Fake Notice / Scam Check</button>
+</div>
+
+<!-- FEATURE: SCAM / DIGITAL ARREST CHECKER -->
+<div class="scam-box" id="scamBox" hidden>
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+    <h3 style="margin:0;font-size:18px;color:var(--seal)">🚨 Fake Notice & Digital Arrest Inspector</h3>
+    <button class="b g" id="scamClose" style="padding:3px 10px;font-size:13px">✕ Band karo</button>
+  </div>
+  <p style="margin:0 0 12px;font-size:14px;color:var(--mut)">Agar aapko koi police, CBI, ED, FedEx, Customs, ya loan recovery ka notice/message aaya hai, toh yahan check karo:</p>
+  <div class="row" style="margin-top:0">
+    <button class="b v" id="runScamCheck">Abhi Jaanch Karo</button>
+    <label class="b g" for="doc" style="cursor:pointer">📎 Notice ki photo upload karo</label>
+    <input type="file" id="doc" accept="image/*" hidden>
+  </div>
+  <div id="scamResult" class="dx" hidden></div>
+</div>
+</div>
+
+<div class="step" id="s2">
+<h2 id="s2H2">Kuch details aur chahiye</h2>
+<p class="hint" id="det"></p>
+<div class="chips" id="cats"></div>
+<div class="fg">
+<div><label for="nm" id="lblNm">Aapka naam</label><input id="nm" autocomplete="name"></div>
+<div><label for="pl" id="lblPl">Shehar / jagah</label><input id="pl"></div>
+<div><label for="pt" id="plab"></label><input id="pt"></div>
+<div><label for="dt" id="lblDt">Kab hua?</label><input id="dt" placeholder="jaise 12 October 2026"></div>
+<div><label for="amt" id="lblAmt">Amount (₹, agar ho)</label><input id="amt" inputmode="numeric"></div>
+<div id="lgw">
+  <label for="lg" id="lblLg">Draft ki bhasha</label>
+  <select id="lg">
+    <option value="en" selected>English (Court Standard)</option>
+    <option value="hi">हिंदी (औपचारिक कानूनी प्रारूप)</option>
+    <option value="mr">मराठी (कोर्ट ड्राफ्ट)</option>
+    <option value="ta">தமிழ் (நீதிமன்ற வரைவு)</option>
+    <option value="te">తెలుగు (కోర్టు డ్రాఫ్ట్)</option>
+    <option value="bn">বাংলা (আদালতের খসড়া)</option>
+    <option value="gu">ગુજરાતી (કોર્ટ ડ્રાફ્ટ)</option>
+    <option value="pa">ਪੰਜਾਬੀ (ਕੋਰਟ ਡਰਾਫਟ)</option>
+    <option value="kn">ಕನ್ನಡ (ಕೋರ್ಟ್ ಡ್ರಾಫ್ಟ್)</option>
+  </select>
+</div>
+</div>
+<div class="row"><button class="b g" id="b2">Peeche</button><button class="b" id="n2">Draft banao</button><button class="b g" id="demo">Demo details bharo</button></div>
+</div>
+
+<div class="step" id="s3">
+<h2 id="s3H2">Aapka draft tayyar hai <small id="rtag" style="font-weight:400;color:var(--mut);font-size:16px"></small></h2>
+<p class="hint" id="s3Hint">Draft pe click karke seedha edit kar sakte ho. [____] wali jagah bhar do.</p>
+<div class="res">
+<div>
+  <div id="paper" contenteditable="true" spellcheck="false"></div>
+
+  <!-- DIRECT WHATSAPP SENDER WITH PHONE NUMBER -->
+  <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:14px;padding:12px;background:var(--bg);border:1px solid var(--line);border-radius:6px">
+    <input id="waNum" placeholder="Opposite party ka WhatsApp No. (jaise 9876543210)" style="max-width:320px" inputmode="tel">
+    <button class="b wa" id="wa">💬 WhatsApp notice bhejo</button>
+    <button class="b g" id="em">✉️ Email draft</button>
+  </div>
+
+  <div class="row">
+    <button class="b" id="pr">Print / PDF save</button>
+    <button class="b g" id="sy">🔊 Sunao</button>
+    <button class="b g" id="cp">Copy</button>
+    <button class="b g" id="ns">Jawab nahi mila? Agla draft</button>
+    <button class="b g" id="nw">Naya complaint</button>
+  </div>
+
+  <!-- FEATURE: EVIDENCE & ANNEXURE BUNDLE BUILDER -->
+  <div class="card annex-box" style="margin-top:22px;padding:20px;border:1.5px dashed var(--line);background:var(--card)">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
+      <div>
+        <h3 id="annexH3" style="margin:0;font-size:18px">📁 Evidence & Annexure Bundle (e-Daakhil / Court Ready)</h3>
+        <p id="annexP" style="margin:4px 0 0;font-size:14px;color:var(--mut)">Saboot (Bill, WhatsApp chat, Bank statement) jodo. Nyay Saathi Annexure A, B, C label dekar ek poora Case Bundle banayega.</p>
+      </div>
+      <label class="b g" for="annexInp" style="cursor:pointer;margin:0">📎 Saboot / Documents jodo</label>
+      <input type="file" id="annexInp" multiple accept="image/*,application/pdf" hidden>
+    </div>
+    <div id="annexList" class="annex-grid" hidden></div>
+    <div id="annexBar" class="row" style="margin-top:14px" hidden>
+      <button class="b" id="dlBundle">📑 Download Complete Case Bundle (Complaint + Annexures)</button>
+    </div>
+  </div>
+
+  <!-- HIDDEN PRINT BUNDLE RENDERER -->
+  <div id="printBundleArea" hidden></div>
+</div>
+
+<div class="side">
+  <h3>Kaunse kanoon</h3><ul id="laws"></ul>
+  <h3>Aage kya karna hai</h3><ul id="road"></ul>
+  <h3>Evidence jo save rakho</h3><ul id="ev"></ul>
+  <h3>Deadlines</h3>
+  <ul id="dl"></ul>
+  <button class="b g" id="calBtn" style="width:100%;margin-top:6px;font-size:14px;padding:8px 12px;text-align:center">📅 Phone Calendar mein Reminder lagao</button>
+</div>
+</div>
+</div>
+</section>
+
+<!-- PINCODE / CITY SE NEAREST FREE LEGAL AID (DLSA) & COURTS FINDER -->
+<section class="card" id="locCard" style="margin-bottom:46px">
+  <h2 id="locH2" style="margin-bottom:4px">📍 Apne shehar ka Free Vakeel (DLSA) aur Court khojo</h2>
+  <p class="hint" id="locHint">Apna Pincode ya Shehar daalo. Sarkar dwara muft vakeel (DLSA), Consumer Commission aur Cyber Thana ek click mein milega.</p>
+  <div style="display:flex;gap:10px;flex-wrap:wrap">
+    <input id="locInp" placeholder="Jaise: 110001, Lucknow, Jaipur, Patna, Indore, Pune..." style="flex:1;min-width:220px">
+    <button class="b" id="locBtn">Khojo</button>
+  </div>
+  <div id="locOut" class="help" style="margin-top:18px;margin-bottom:0" hidden></div>
+</section>
+
+<section class="how">
+<div><b>Bolo (10 Languages)</b><p>Hindi, English, Marathi, Tamil, Bengali kisi bhi bhasha mein batao.</p></div>
+<div><b>Details & Evidence do</b><p>Dispute details bharo aur apne bills / proofs jodo.</p></div>
+<div><b>Poora Bundle lo</b><p>Formal draft, Annexures C-1, C-2 aur court filing roadmap ek sath.</p></div>
+</section>
+
+<section id="types" class="sec"><h2>Kaunsi problem mein madad milegi</h2><p class="hint">Ek tile dabao, example ke saath form khul jayega.</p><div class="cats" id="tiles"></div></section>
+<section id="features" class="sec"><h2>Sirf draft nahi, poora rasta</h2><div class="bento">
+<div class="w2"><b>10 Indian Languages mein Bolo</b><p>Hindi, Marathi, Tamil, Bengali, Telugu, Punjabi me mic dabao. Local accent me speech recognition active hota hai.</p><div class="wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+<div class="w2"><b>Evidence & Annexure Bundle Maker</b><p>Multiple proofs upload karo — Nyay Saathi Annexure A, B, C label dekar e-Daakhil ready single indexed bundle banata hai.</p></div>
+<div><b>Direct WhatsApp Notice</b><p>Landlord ya company ke number par seedha legal notice send karo.</p></div>
+<div><b>Scam & Fake Notice Checker</b><p>Digital arrest aur fake police/CBI notices ko turant pehchano.</p></div>
+<div><b>Calendar Reminders</b><p>15 din aur 30 din ki statutory deadline apne phone calendar mein save karo.</p></div>
+<div><b>Free Legal Aid Finder</b><p>Apne zille ke sarkari free vakeel (DLSA) ki details ek click mein pao.</p></div>
+</div></section>
+
+<h2 style="margin-top:64px">Madad abhi chahiye?</h2>
+<div class="help">
+<div><b>15100</b>NALSA free legal aid helpline</div>
+<div><b>1930</b>Cyber fraud, <a href="https://cybercrime.gov.in" target="_blank" rel="noopener">cybercrime.gov.in</a></div>
+<div><b>1915</b>National Consumer Helpline</div>
+<div><b>112</b>Police emergency</div>
+<div><b>181</b>Mahila helpline</div>
+<div><b>📍</b>Paas mein madad: <a href="https://www.google.com/maps/search/District+Legal+Services+Authority+near+me" target="_blank" rel="noopener">DLSA</a>, <a href="https://www.google.com/maps/search/District+Consumer+Commission+near+me" target="_blank" rel="noopener">Consumer Commission</a>, <a href="https://www.google.com/maps/search/police+station+near+me" target="_blank" rel="noopener">Thana</a></div>
+</div>
+
+<section id="faq" class="sec" style="margin-bottom:56px"><h2>Aksar pooche jaane wale sawal</h2>
+<details><summary>Kya ye vakeel ki jagah leta hai?</summary><p>Nahi. Ye drafting madad hai. Court ya jataal case mein vakeel ya free legal aid (NALSA 15100) se salah zaroor lo.</p></details>
+<details><summary>Annexure bundle court ya e-Daakhil pe chalega?</summary><p>Haan! Annexures ko C-1, C-2 index ke saath PDF bundle banakar e-Daakhil aur Consumer Commission mein seedha upload kiya jata hai.</p></details>
+<details><summary>Meri details aur saboot kahan jaate hain?</summary><p>Aapke documents aur details kisi server par save nahi hote, sab aapke browser mein process hota hai.</p></details>
+<details><summary>Kharcha kitna aayega?</summary><p>Draft banana free hai. Portal ya court ki fee alag hoti hai, jaise RTI mein ₹10 aur ₹5 lakh tak Consumer Commission mein ₹0.</p></details>
+</section>
+
+<footer>Nyay Saathi drafting madad hai, legal advice nahi. File karne se pehle sections aur format kisi vakeel ya apne District Legal Services Authority (DLSA) se verify karwa lo. Aapki details server pe save nahi hoti.</footer>
+</div>
+
+<!-- FEATURE: WHATSAPP BOT SIMULATOR MODAL -->
+<div class="wa-modal" id="waModal" hidden>
+  <div class="wa-phone">
+    <div class="wa-hdr">
+      <span style="font-size:22px">⚖️</span>
+      <div style="flex:1"><b>Nyay Saathi AI Bot</b><small style="display:block;color:#8696a0">Online | Verified Legal AI</small></div>
+      <button id="waClose" aria-label="Band karo" style="background:none;border:0;color:#fff;font-size:24px;cursor:pointer;padding:4px 10px;line-height:1;border-radius:4px">✕</button>
+    </div>
+    <div class="wa-chat" id="waChat">
+      <div class="wa-msg">Namaste! Main Nyay Saathi Bot hoon. Apni problem WhatsApp pe likho ya voice note bhejo. 60 second mein formal legal draft aur roadmap de dunga.</div>
+    </div>
+    <div class="wa-inp">
+      <input id="waMsgInp" placeholder="Apni problem likho...">
+      <button class="b" id="waSendBtn" style="padding:7px 14px;border-radius:20px;background:#00a884">Bhejo</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast" role="status"></div>
+
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const C={
+consumer:{n:"Consumer complaint",ic:"🛒",pl:"Seller / company ka naam",kw:["refund","phone","order","seller","defect","kharab","warranty","product","delivery","amazon","flipkart","रिफंड","खराब","सामान","દુકાન","பொருட்கள்"],
+law:[["Consumer Protection Act, 2019, Sec 35","District Commission mein complaint file karne ka adhikar"],["Sec 2(10), 2(11), 2(47)","Defect, deficiency in service aur unfair trade practice ki definitions"],["Sec 69","Complaint 2 saal ke andar file karni hoti hai"]],
+st:["Pehle seller ko likhit notice ya email bhejo, 15 din ka time do.","<a href='https://consumerhelpline.gov.in' target='_blank' rel='noopener'>National Consumer Helpline</a> (1915) pe complaint darj karo.","<a href='https://edaakhil.nic.in' target='_blank' rel='noopener'>e-Daakhil</a> pe online file karo. ₹5 lakh tak ke claim pe fee nahi lagti."],
+ev:["Invoice / bill aur payment proof (Annexure A)","Product ki photo ya defect proof (Annexure B)","Seller ke saath chat, email, call record (Annexure C)","Warranty card (Annexure D)"]},
+rti:{n:"RTI application",ic:"📄",pl:"Department / PIO ka naam",kw:["rti","jaankari","information","record","panchayat","department","sarkari","सूचना","जानकारी","માહિતી","தகவல்"],
+law:[["RTI Act, 2005, Sec 6(1)","Public Information Officer ko application"],["Sec 7(1)","Jawab 30 din ke andar milna chahiye"],["Sec 19(1)","Jawab na mile ya galat ho to first appeal"]],
+st:["Central departments ke liye <a href='https://rtionline.gov.in' target='_blank' rel='noopener'>rtionline.gov.in</a> pe ₹10 fee ke saath file karo.","State ke department ho to apne state ka RTI portal ya post se bhejo.","30 din mein jawab na aaye to 30 din ke andar first appeal karo. BPL applicants ko fee nahi lagti."],
+ev:["Application ki copy","Fee payment ya postal receipt","Registration number","Department ka jawab (agar mila)"]},
+rent:{n:"Rent / deposit dispute",ic:"🏠",pl:"Landlord ka naam",kw:["landlord","deposit","kiraya","rent","tenant","makan","मकान","किराया","ભાડું","வாடகை"],
+law:[["Indian Contract Act, 1872","Agreement todne aur paisa wapas na karne par"],["State Rent Control Act","Deposit aur eviction ke niyam state ke hisaab se alag hain"],["CPC Order XXXVII","Likhit agreement pe paisa recovery ka summary suit"]],
+st:["Rent agreement aur deposit ka payment proof nikalo.","Landlord ko registered post aur WhatsApp/email se legal notice bhejo, 15 din ka deadline do.","Na maane to <a href='https://nalsa.gov.in' target='_blank' rel='noopener'>DLSA</a> ya Lok Adalat se free settlement try karo, phir civil recovery suit."],
+ev:["Rent agreement (Annexure A)","Deposit ka payment proof / UPI receipt (Annexure B)","Ghar khali karne ki handover photo (Annexure C)","Landlord ke saath WhatsApp chat / notice copy (Annexure D)"]},
+cyber:{n:"Cyber fraud",ic:"🛡",pl:"Fraudster / platform (agar pata ho)",kw:["upi","otp","fraud","scam","hack","online","link","thagi","paisa cut","फ्रॉड","ठगी","સાયબર","மோசடி"],
+law:[["BNS Sec 318","Cheating aur dhokhe se sampatti ya paisa lena"],["IT Act, 2000, Sec 66D","Computer resource se personation karke cheating"]],
+st:["TURANT 1930 pe call karo. Jaldi karne se paisa freeze ho sakta hai.","<a href='https://cybercrime.gov.in' target='_blank' rel='noopener'>cybercrime.gov.in</a> pe complaint karo.","Bank ko likhit mein batao, card ya UPI block karwao, phir cyber cell mein FIR."],
+ev:["Transaction ID / UTR number (Annexure A)","Chat, link aur fake message ke screenshots (Annexure B)","Fraudster ka phone number ya UPI ID (Annexure C)","Bank statement (Annexure D)"]},
+police:{n:"Police complaint / FIR",ic:"🚔",pl:"Aaropi ka naam (agar pata ho)",kw:["chori","police","fir","dhamki","threat","maarpeet","marpeet","theft","चोरी","धमकी","मारपीट","પોલીસ","காவல்துறை"],
+law:[["BNSS Sec 173","Cognizable offence mein FIR darj karna"],["BNSS Sec 173(4)","Thana FIR na likhe to Superintendent of Police ko complaint"],["Zero FIR","Kisi bhi thane mein FIR likhwa sakte ho, baad mein transfer hoti hai"]],
+st:["Likhit complaint do aur receiving copy zaroor lo.","FIR ki free copy maango (BNSS 173(2)).","Mana kare to SP ko post ya email se complaint bhejo, phir Magistrate ke paas application do."],
+ev:["ID proof (Aadhaar / Voter ID)","Photo, video ya medical report","Witnesses ke naam aur number","Nuksaan ki list"]}};
+
+// MULTI-LINGUAL REGIONAL TEMPLATES
+const REGIONAL_HEADERS = {
+  mr: { consumer: "ग्राहक संरक्षण कायदा, २०१९ च्या कलम ३५ अंतर्गत तक्रार", to: "प्रति, माननीय अध्यक्ष महोदय, जिल्हा ग्राहक तक्रार निवारण आयोग" },
+  ta: { consumer: "நுகர்வோர் பாதுகாப்புச் சட்டம், 2019 பிரிவு 35-ன் கீழ் புகார்", to: "முன்னிலை: மதிப்பிற்குரிய தலைவர் அவர்கள், மாவட்ட நுகர்வோர் குறைதீர் ஆணையம்" },
+  te: { consumer: "వినియోగదారుల పరిరక్షణ చట్టం, 2019 సెక్షన్ 35 క్రింద ఫిర్యాదు", to: "సమక్షంలో: గౌరవనీయులైన అధ్యక్షుల వారు, జిల్లా వినియోగదారుల వివాదాల పరిష్కార కమిషన్" },
+  bn: { consumer: "ভোক্তা সুরক্ষা আইন, ২০১৯ এর ধারা ৩৫ অনুযায়ী অভিযোগ", to: "সমীপে: মাননীয় সভাপতি মহাশয়, জেলা ক্রেতা সুরক্ষা বিরোধ নিষ্পত্তি কমিশন" },
+  gu: { consumer: "ગ્રાહક સુરક્ષા અધિનિયમ, ૨૦૧૯ ની કલમ ૩૫ હેઠળ ફરિયાદ", to: "સમક્ષ: માનનીય પ્રમુખશ્રી, જિલ્લા ગ્રાહક તકરાર નિવારણ કમિશન" },
+  pa: { consumer: "ਖਪਤਕਾਰ ਸੁਰੱਖਿਆ ਕਾਨੂੰਨ, 2019 ਦੀ ਧਾਰਾ 35 ਅਧੀਨ ਸ਼ਿਕਾਇਤ", to: "ਸਮਕਸ਼: ਮਾਨਯੋਗ ਪ੍ਰਧਾਨ ਸਾਹਿਬ, ਜ਼ਿਲ੍ਹਾ ਖਪਤਕਾਰ ਝਗੜਾ ਨਿਵਾਰਣ ਕਮਿਸ਼ਨ" }
+};
+
+const T={
+consumer:(f,l)=> {
+  if (l && REGIONAL_HEADERS[l]) {
+    const rh = REGIONAL_HEADERS[l];
+    return `${rh.to}\n${f.place}\n\nSubject: ${rh.consumer} against ${f.party}\n\nRespected Sir/Madam,\n1. Complainant: ${f.name}, R/o ${f.place}.\n2. Opposite Party: ${f.party}.\n3. Date: ${f.date} | Disputed Amount: ${f.amt}\n4. Facts: ${f.desc}\n5. Statutory ground: Defect & Deficiency under CPA, 2019.\n\nPRAYER:\na) Refund of ${f.amt} with 18% p.a. interest;\nb) Compensation for mental agony and litigation costs;\n\nDate: ${f.today} | Place: ${f.place}\nComplainant: ${f.name}`;
+  }
+  return `To,\nThe President,\nDistrict Consumer Disputes Redressal Commission\n${f.place}\n\nSubject: Complaint under Section 35 of the Consumer Protection Act, 2019 against ${f.party}\n\nRespected Sir/Madam,\n\n1. I, ${f.name}, resident of ${f.place}, am the complainant and a consumer within the meaning of the Act.\n2. On ${f.date}, I dealt with ${f.party} (Opposite Party) for ${f.amt}.\n3. Facts: ${f.desc}\n4. The above amounts to a defect in goods / deficiency in service / unfair trade practice. I approached the Opposite Party for redress, but no satisfactory resolution was provided.\n\nPRAYER\na) Refund or replacement of ${f.amt}, with interest;\nb) Compensation for mental agony and costs of litigation;\nc) Any other relief this Commission deems fit.\n\nEnclosures: invoice, payment proof, correspondence with the Opposite Party.\n\nPlace: ${f.place}\nDate: ${f.today}\n\nYours faithfully,\n${f.name}`;
+},
+rti:f=>`To,\nThe Public Information Officer (PIO)\n${f.party}\n\nSubject: Request for information under Section 6(1) of the Right to Information Act, 2005\n\nSir/Madam,\n\nI, ${f.name}, resident of ${f.place}, a citizen of India, request the following information relating to ${f.date}:\n\n${f.desc}\n\nI am enclosing the application fee of ₹10 (unless exempt as a BPL applicant). If this information pertains to another public authority, kindly transfer this application under Section 6(3). Please provide the information within 30 days as required by Section 7(1).\n\nPlace: ${f.place}\nDate: ${f.today}\n\nYours faithfully,\n${f.name}`,
+rent:f=>`LEGAL NOTICE / DEMAND FOR REFUND OF SECURITY DEPOSIT\n\nTo,\n${f.party} (Landlord)\n\nDate: ${f.today}\n\nSubject: Demand for refund of security deposit of ${f.amt}\n\nSir/Madam,\n\n1. I, ${f.name}, was your tenant at ${f.place} and paid a security deposit of ${f.amt} on ${f.date}.\n2. Facts: ${f.desc}\n3. Despite handing over possession and repeated requests, the deposit has not been refunded.\n\nYou are hereby called upon to refund the said amount within 15 days of receipt of this notice, failing which I shall be constrained to initiate civil recovery proceedings, along with interest and costs, entirely at your risk.\n\nYours faithfully,\n${f.name}`,
+cyber:f=>`To,\nThe Station House Officer / Cyber Crime Cell\n${f.place}\n\nSubject: Complaint regarding online financial fraud\n\nSir/Madam,\n\n1. I, ${f.name}, resident of ${f.place}, am a victim of online fraud.\n2. On ${f.date}, I lost ${f.amt} through the following incident (suspected: ${f.party}).\n3. Facts: ${f.desc}\n4. I have reported the matter on 1930 / cybercrime.gov.in (acknowledgement no. [____]) and informed my bank.\n\nI request you to register an FIR under Section 318 of the Bharatiya Nyaya Sanhita and Section 66D of the Information Technology Act, 2000, and to take steps to freeze the beneficiary accounts.\n\nPlace: ${f.place}\nDate: ${f.today}\n\nYours faithfully,\n${f.name}`,
+police:f=>`To,\nThe Station House Officer\nPolice Station, ${f.place}\n\nSubject: Complaint and request to register FIR against ${f.party}\n\nSir/Madam,\n\n1. I, ${f.name}, resident of ${f.place}, wish to report the following incident which occurred on ${f.date}.\n2. Facts: ${f.desc}\n3. Estimated loss, if any: ${f.amt}.\n\nI request you to register an FIR under Section 173 of the Bharatiya Nagarik Suraksha Sanhita, 2023 and take action under the applicable sections of law. Please provide me a free copy of the FIR.\n\nPlace: ${f.place}\nDate: ${f.today}\n\nYours faithfully,\n${f.name}`};
+
+let cat="consumer",txt="",AI=false;
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+fetch("/health").then(r=>r.json()).then(j=>{AI=!!j.llm}).catch(()=>{});
+let AUTO=false,VO=false,LF=null,SP="";
+const say=t=>{try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang=$("#vLang").value||"en-IN";u.rate=.92;speechSynthesis.speak(u)}catch(e){toast("Voice output support nahi hai.")}};
+const safety=t=>{const s=$("#sf");let m="";if(/suicide|khudkushi|jaan de|marna chah|आत्महत्या/i.test(t))m="Aap akele nahi ho. Tele-MANAS 14416 pe 24x7 free baat kar sakte ho.";else if(/maarpeet|marpeet|dahej|domestic|harass|molest|dhamki|मारपीट|दहेज|धमकी|छेड़/i.test(t))m="Agar abhi khatre mein ho to 112 pe call karo. Mahila helpline: 181.";s.textContent=m;s.hidden=!m};
+const D=n=>{const d=new Date();d.setDate(d.getDate()+n);return d.toLocaleDateString("en-IN",{day:"numeric",month:"short",year:"numeric"})};
+const DL={consumer:()=>["Seller ke notice ka jawab: "+D(15),"Complaint cause of action se 2 saal ke andar (Sec 69)"],rti:()=>["Jawab aana chahiye: "+D(30),"First appeal: "+D(60)+" tak (30 din ke andar)"],rent:()=>["Landlord ke jawab ki last date: "+D(15)],cyber:()=>["Aaj hi 1930 pe call karo. Jitni jaldi, utna behtar."],police:()=>["FIR na likhe to SP ko turant likhit complaint bhejo."]};
+const N={rti:f=>`To,\nThe First Appellate Authority\n${f.party}\n\nSubject: First appeal under Section 19(1) of the Right to Information Act, 2005\n\nSir/Madam,\n\nI, ${f.name}, filed an RTI application dated [____] with the PIO seeking the following: ${f.desc}\nI have received no reply within 30 days / an unsatisfactory reply. I request that the PIO be directed to provide complete information free of cost, and that action under Section 20 be considered.\n\nEnclosures: copy of application, proof of fee, postal receipt / registration number.\n\nPlace: ${f.place}\nDate: ${f.today}\n\nYours faithfully,\n${f.name}`,
+police:f=>`To,\nThe Superintendent of Police\n${f.place}\n\nSubject: Complaint under Section 173(4) of the BNSS, 2023 for non-registration of FIR\n\nSir/Madam,\n\nI, ${f.name}, approached the police station on ${f.date} to report: ${f.desc}\nThe officer in charge did not register my FIR. I request you to register the FIR or direct an investigation under your supervision.\n\nPlace: ${f.place}\nDate: ${f.today}\n\nYours faithfully,\n${f.name}`,
+any:f=>`To,\n${f.party}\n\nSubject: Final reminder before legal action\n\nSir/Madam,\n\nI, ${f.name}, refer to my earlier complaint dated [____] regarding: ${f.desc}\nDespite repeated requests, my grievance remains unresolved. If I receive no satisfactory reply within 7 days, I shall approach the appropriate forum for relief with costs, at your risk.\n\nPlace: ${f.place}\nDate: ${f.today}\n\nYours faithfully,\n${f.name}`};
+const toast=m=>{const t=$("#toast");t.textContent=m;t.classList.add("on");clearTimeout(toast.i);toast.i=setTimeout(()=>t.classList.remove("on"),2800)};
+const go=n=>{$$(".step").forEach((s,i)=>s.classList.toggle("on",i==n-1));$$(".dot").forEach((d,i)=>d.classList.toggle("on",i<n));$("#app").scrollIntoView({behavior:"smooth"})};
+const classify=t=>{t=t.toLowerCase();let b=null,m=0;for(const k in C){const s=C[k].kw.filter(w=>t.includes(w)).length;if(s>m){m=s;b=k}}return b};
+const setCat=k=>{cat=k;$$("#cats button").forEach(b=>b.classList.toggle("on",b.dataset.k==k));$("#plab").textContent=C[k].pl};
+$("#cats").innerHTML=Object.keys(C).map(k=>`<button data-k="${k}">${C[k].ic} ${C[k].n}</button>`).join("");
+$("#cats").onclick=e=>{const b=e.target.closest("button");if(b)setCat(b.dataset.k)};
+const EX=["Landlord ne 30000 deposit wapas nahi diya","Online order ka phone kharab nikla, seller refund nahi de raha","UPI se 15000 ka fraud ho gaya","Panchayat se road repair ka record RTI se chahiye","Ghar mein chori hui, police FIR nahi likh rahi"];
+$("#ex").innerHTML=EX.map(x=>`<button>${x}</button>`).join("");
+$("#ex").onclick=e=>{const b=e.target.closest("button");if(b)$("#story").value=b.textContent};
+$("#tiles").innerHTML=Object.keys(C).map(k=>`<button data-k="${k}"><span>${C[k].ic}</span><b>${C[k].n}</b><small>${C[k].law[0][0]}</small></button>`).join("");
+const EI={consumer:1,rti:3,rent:0,cyber:2,police:4};
+$("#tiles").onclick=e=>{const b=e.target.closest("button");if(!b)return;$("#story").value=EX[EI[b.dataset.k]];go(1)};
+
+$("#n1").onclick=()=>{txt=$("#story").value.trim();if(txt.length<10)return toast("Thoda detail mein batao, kam se kam ek line likho.");const k=classify(txt);setCat(k||"consumer");$("#det").textContent=k?"Detected category: "+C[k].n+". Galat ho to neeche se badlo.":"Category pakka nahi hui. Neeche se chuno.";const a=txt.match(/\d[\d,]{2,}/);if(a&&!$("#amt").value)$("#amt").value=a[0].replace(/,/g,"");safety(txt);go(2);if(VO){VO=false;say("Maine samjha, ye "+C[cat].n+" ka maamla hai. Ab apna naam aur details bhar do.")}};
+$("#b2").onclick=()=>go(1);
+$("#demo").onclick=()=>{$("#nm").value="Ramesh Kumar";$("#pl").value="New Delhi";$("#pt").value="ABC Mobiles Pvt. Ltd.";$("#dt").value="12 October 2026";toast("Demo details bhar di.")};
+
+$("#n2").onclick=async()=>{const v=id=>$(id).value.trim(),b="[____]",a=v("#amt");const f={name:v("#nm")||b,place:v("#pl")||b,party:v("#pt")||b,date:v("#dt")||b,desc:txt,amt:a?"₹"+a:"the amount involved",today:new Date().toLocaleDateString("en-IN",{day:"numeric",month:"long",year:"numeric"})};const c=C[cat];
+const selectedLang = $("#lg").value;
+let d=T[cat](f, selectedLang),src=null;
+if(AI){toast("AI draft ban raha hai…");try{const r=await fetch("/api/draft",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({category:cat,text:txt,fields:f,lang:selectedLang})});if(r.ok){const j=await r.json();d=j.draft;src=j.sources.map(s=>s.act+", "+s.section)}}catch(e){}}
+$("#paper").textContent=d;$("#rtag").textContent=" · "+c.n+(src?" · AI draft":"");
+$("#laws").innerHTML=src?src.map(s=>`<li><b>${esc(s)}</b><span>Retrieved from Act text</span></li>`).join(""):c.law.map(l=>`<li><b>${l[0]}</b><span>${l[1]}</span></li>`).join("");
+const am=+v("#amt").replace(/,/g,"")||0,fm=cat=="consumer"&&am?"Paid amount ₹"+am.toLocaleString("en-IN")+" ke hisaab se "+(am<=5e6?"District":am<=2e7?"State":"National")+" Commission mein file karo.":"";
+const sx=(fm?[fm]:[]).concat(c.st);
+$("#road").innerHTML=sx.map(s=>`<li>${s}</li>`).join("");
+$("#dl").innerHTML=DL[cat]().map(s=>`<li>${s}</li>`).join("");
+LF=f;SP=c.n+" ke liye aage ka rasta. "+sx.map(s=>s.replace(/<[^>]+>/g,"")).join(". ")+". "+DL[cat]().join(". ");
+$("#ev").innerHTML=c.ev.map(s=>`<li>${s}</li>`).join("");go(3)};
+
+$("#pr").onclick=async()=>{if(AI)try{const r=await fetch("/api/pdf",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({draft:$("#paper").innerText})});if(r.ok){window.open(URL.createObjectURL(await r.blob()));return}}catch(e){}try{window.print()}catch(e){toast("Print yahan khul nahi raha. Copy karke Word mein paste karo.")}};
+$("#cp").onclick=async()=>{try{await navigator.clipboard.writeText($("#paper").innerText);toast("Draft copy ho gaya.")}catch(e){const r=document.createRange();r.selectNodeContents($("#paper"));getSelection().removeAllRanges();getSelection().addRange(r);toast("Draft select ho gaya, Ctrl+C dabao.")}};
+$("#nw").onclick=()=>{$("#story").value="";$$("#s2 input").forEach(i=>i.value="");annexFilesList=[];renderAnnexures();go(1)};
+
+// VOICE INPUT WITH REGIONAL ACCENTS
+$("#mic").onclick=()=>{
+  const m=$("#mic");
+  try{
+    const R=window.SpeechRecognition||window.webkitSpeechRecognition;
+    if(!R)throw 0;
+    const r=new R();
+    r.lang=$("#vLang").value||"hi-IN";
+    r.interimResults=false;
+    r.onresult=e=>{$("#story").value=($("#story").value+" "+e.results[0][0].transcript).trim();VO=true;if(AUTO){AUTO=false;$("#n1").click()}};
+    r.onend=()=>m.classList.remove("rec");
+    r.onerror=()=>toast("Mic allow karo ya type karo.");
+    r.start();
+    m.classList.add("rec");
+    toast("Sun raha hoon, boliye…");
+  }catch(e){toast("Is browser mein voice support nahi hai. Type karo.")}
+};
+$("#hv").onclick=()=>{AUTO=true;$("#app").scrollIntoView({behavior:"smooth"});$("#mic").click()};
+$("#dm").onclick=()=>{$("#story").value=EX[1];$("#n1").click();$("#demo").click();$("#n2").click()};
+$("#sy").onclick=()=>say(SP);
+$("#ns").onclick=()=>{if(!LF)return;$("#paper").textContent=(N[cat]||N.any)(LF);toast(cat=="rti"?"First appeal ka draft ban gaya.":"Reminder notice ka draft ban gaya.")};
+$("#th").onclick=()=>{const r=document.documentElement,d=r.dataset.theme?r.dataset.theme=="dark":matchMedia("(prefers-color-scheme:dark)").matches;r.dataset.theme=d?"light":"dark"};
+
+// FEATURE 1: WHATSAPP DIRECT SENDER WITH TARGET PHONE NUMBER
+$("#wa").onclick=()=>{
+  const body=$("#paper").innerText;
+  const num=($("#waNum").value||"").replace(/\D/g,"");
+  const waMsg="*LEGAL NOTICE / FORMAL COMPLAINT*\n----------------------------------------\n\n"+body;
+  const target = num.length>=10 ? `phone=${num.length==10?'91'+num:num}&` : "";
+  const url=`https://api.whatsapp.com/send?${target}text=`+encodeURIComponent(waMsg);
+  window.open(url,"_blank");
+  toast("WhatsApp notice khul raha hai...");
+};
+$("#em").onclick=()=>{
+  const body=$("#paper").innerText;
+  const subMatch=body.match(/Subject:\s*([^\n\r]+)/i);
+  const subject=subMatch?subMatch[1]:(C[cat].n+" - Legal Notice");
+  window.location.href=`mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  toast("Email app open ho rahi hai...");
+};
+
+// FEATURE 2: SCAM & DIGITAL ARREST DETECTOR
+const inspectNotice=t=>{
+  const s=t.toLowerCase();
+  const isDigitalArrest=/digital arrest|skype|video call|cbi custody|narcotics bureau|fedex parcel|customs seizure|mdma|drugs in parcel|illegal parcel|clearing fee|transfer money to rbi|rbi verification|instant warrant|avoid arrest|digital trial/i.test(s);
+  const isPoliceScam=/police notice|summons on whatsapp|arrest warrant on whatsapp|pay penalty online immediately/i.test(s);
+  const res=$("#scamResult");
+  res.hidden=false;
+
+  if(isDigitalArrest||isPoliceScam){
+    res.innerHTML=`<div class="scam-badge danger">⚠️ 100% FRAUD / DIGITAL ARREST SCAM ALERT</div>
+<p style="margin:0 0 8px;font-weight:600;color:var(--seal)">यह कानूनी नोटिस पूरी तरह फ़र्ज़ी (Fake) और साइबर अपराध है!</p>
+<ul style="margin:0 0 12px;padding-left:18px;font-size:14px;color:var(--mut)">
+  <li><b>सच्चाई 1:</b> भारतीय कानून में 'Digital Arrest' जैसी कोई चीज़ नहीं होती। पुलिस/CBI कभी Skype या WhatsApp वीडियो कॉल पर किसी को हिरासत में नहीं लेती।</li>
+  <li><b>सच्चाई 2:</b> कोई भी सरकारी एजेंसी 'RBI Verification Account' या किसी निजी UPI ID पर पैसे ट्रांसफर करने के लिए नहीं कहती।</li>
+  <li><b>सच्चाई 3:</b> कोर्ट समन या वारंट पुलिस द्वारा घर पर लिखित में दिए जाते हैं, WhatsApp पर नहीं भेजे जाते।</li>
+</ul>
+<div class="row" style="margin-top:6px">
+  <a class="b v" href="tel:1930" style="text-decoration:none">📞 तुरंत 1930 पर कॉल करें</a>
+  <a class="b g" href="https://cybercrime.gov.in" target="_blank" rel="noopener" style="text-decoration:none">cybercrime.gov.in पर रिपोर्ट करें ↗</a>
+</div>`;
+    say("सावधान! यह डिजिटल अरेस्ट का फ्रॉड है। कोई पैसा ना भेजें और तुरंत 1930 पर कॉल करें।");
+  }else{
+    res.innerHTML=`<div class="scam-badge safe">✅ कोई डिजिटल अरेस्ट स्कैम संकेत नहीं मिला</div>
+<p style="margin:0 0 8px;font-size:14px">यह सामान्य कानूनी नोटिस या पत्राचार प्रतीत होता है (जैसे धारा 138 चेक बाउंस, रेंट नोटिस, उपभोक्ता नोटिस)।</p>
+<ul style="margin:0;padding-left:18px;font-size:14px;color:var(--mut)">
+  <li>पत्र का लेटरहेड, मुहर, और भेजने वाले वकील का बार काउंसिल नंबर जांचें।</li>
+  <li>जवाब देने की अंतिम तिथि (आमतौर पर 15 दिन) नोट करें।</li>
+  <li>निजी सलाह के लिए अपने जिले के DLSA या वकील से मिलें।</li>
+</ul>`;
+  }
+};
+
+$("#scamCheckBtn").onclick=()=>{
+  const b=$("#scamBox");
+  b.hidden=!b.hidden;
+  if(!b.hidden){
+    b.scrollIntoView({behavior:"smooth"});
+    if($("#story").value.trim().length>5)$("#runScamCheck").click();
+  }
+};
+$("#scamClose").onclick=()=>$("#scamBox").hidden=true;
+$("#runScamCheck").onclick=()=>{
+  const val=$("#story").value.trim();
+  if(!val)return toast("Upar box mein notice ka message likho ya bolo.");
+  inspectNotice(val);
+};
+
+$("#doc").onchange=async e=>{
+  const f=e.target.files[0];
+  if(!f)return;
+  toast("Notice ki photo check ho rahi hai…");
+  try{
+    const b=await new Promise(r=>{const x=new FileReader();x.onload=()=>r(x.result.split(",")[1]);x.readAsDataURL(f)});
+    const r=await fetch("/api/explain",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({image:b,media_type:f.type})});
+    const j=await r.json();
+    const res=$("#scamResult");
+    $("#scamBox").hidden=false;
+    res.hidden=false;
+    res.innerHTML=`<div class="scam-badge ${j.explanation.includes('फ्रॉड')||j.explanation.includes('स्कैम')?'danger':'safe'}">दस्तावेज़ विश्लेषण</div><div style="font-size:14px;line-height:1.7">${esc(j.explanation)}</div>`;
+    say(j.explanation.slice(0,350));
+  }catch(x){
+    inspectNotice(f.name+" legal notice summons");
+  }
+};
+
+// FEATURE 3: CALENDAR DEADLINE REMINDER
+$("#calBtn").onclick=()=>{
+  const days=cat=="consumer"||cat=="rent"?15:cat=="rti"?30:1;
+  const d=new Date();
+  d.setDate(d.getDate()+days);
+  const pName=LF&&LF.party&&LF.party!=="[____]"?LF.party:"Opposite Party";
+  const title=`Nyay Saathi: ${C[cat].n} Follow-up Deadline (${pName})`;
+  const desc=`Legal notice deadline for ${pName}. If no resolution or reply received, open AI Nyay Saathi for Next Step / First Appeal.`;
+  
+  const dtStr=d.toISOString().replace(/-|:|\.\d\d\d/g,"").slice(0,15)+"Z";
+  const gCalUrl=`https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&details=${encodeURIComponent(desc)}&dates=${dtStr}/${dtStr}`;
+  
+  const ics=`BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Nyay Saathi//Legal Tracker//EN\nBEGIN:VEVENT\nSUMMARY:${title}\nDESCRIPTION:${desc}\nDTSTART:${dtStr}\nDTEND:${dtStr}\nEND:VEVENT\nEND:VCALENDAR`;
+  const blob=new Blob([ics],{type:"text/calendar"});
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  a.download=`NyaySaathi_Deadline_${days}days.ics`;
+  a.click();
+  
+  window.open(gCalUrl,"_blank");
+  toast("Deadline calendar mein save ho gayi!");
+};
+
+// FEATURE 4: PINCODE / CITY SE DLSA & COURTS FINDER
+$("#locBtn").onclick=()=>{
+  const q=$("#locInp").value.trim();
+  if(!q)return toast("Apna Shehar ya Pincode likho.");
+  const out=$("#locOut");
+  out.hidden=false;
+  out.innerHTML=`
+    <div><b>⚖️ Free Vakeel (DLSA)</b><p style="margin:4px 0 8px">District Legal Services Authority, ${esc(q)}</p><a href="https://www.google.com/maps/search/District+Legal+Services+Authority+${encodeURIComponent(q)}" target="_blank" rel="noopener">Google Maps pe dekho ↗</a><br><small style="color:var(--mut);display:block;margin-top:6px">SC/ST, Mahilaon aur ₹3L se kam aamdani walon ko sarkar se 100% free advocate milta hai (Sec 12 LSA Act).</small></div>
+    <div><b>🛒 Consumer Court</b><p style="margin:4px 0 8px">District Consumer Commission, ${esc(q)}</p><a href="https://www.google.com/maps/search/District+Consumer+Disputes+Redressal+Commission+${encodeURIComponent(q)}" target="_blank" rel="noopener">Google Maps pe dekho ↗</a><br><small style="color:var(--mut);display:block;margin-top:6px">₹5 lakh tak ke daawe par zero court fees lagti hai.</small></div>
+    <div><b>🛡️ Cyber Crime Thana</b><p style="margin:4px 0 8px">Cyber Crime Police Station, ${esc(q)}</p><a href="https://www.google.com/maps/search/Cyber+Crime+Police+Station+${encodeURIComponent(q)}" target="_blank" rel="noopener">Google Maps pe dekho ↗</a><br><small style="color:var(--mut);display:block;margin-top:6px">Pehle 1930 par complaint token darj karwayein.</small></div>
+  `;
+  out.scrollIntoView({behavior:"smooth"});
+};
+
+// FEATURE 5: MULTIPLE EVIDENCE & ANNEXURE PDF BUNDLE BUILDER
+let annexFilesList = [];
+const labels = ["Invoice / Payment Proof", "Photo / Video Evidence", "WhatsApp / Email Chat", "Bank Statement / Receipt", "Agreement Copy"];
+
+$("#annexInp").onchange=e=>{
+  const files=[...e.target.files];
+  files.forEach((f, idx)=>{
+    const reader = new FileReader();
+    reader.onload = ev => {
+      const tag = `Annexure C-${annexFilesList.length + 1}`;
+      annexFilesList.push({
+        id: Date.now() + Math.random(),
+        name: f.name,
+        tag: tag,
+        title: labels[annexFilesList.length % labels.length] || "Supporting Document",
+        data: ev.target.result
+      });
+      renderAnnexures();
+    };
+    reader.readAsDataURL(f);
+  });
+};
+
+function renderAnnexures() {
+  const box = $("#annexList");
+  const bar = $("#annexBar");
+  if (!annexFilesList.length) {
+    box.hidden = true;
+    bar.hidden = true;
+    return;
+  }
+  box.hidden = false;
+  bar.hidden = false;
+  box.innerHTML = annexFilesList.map((a, i) => `
+    <div class="annex-card">
+      <img src="${a.data}" alt="${esc(a.tag)}">
+      <b>${esc(a.tag)}</b>
+      <span style="color:var(--mut)">${esc(a.title)}</span>
+      <button class="b g" style="padding:2px 8px;font-size:12px;margin-top:auto" onclick="removeAnnex(${i})">Hatao</button>
+    </div>
+  `).join("");
+}
+
+window.removeAnnex = i => {
+  annexFilesList.splice(i, 1);
+  renderAnnexures();
+};
+
+$("#dlBundle").onclick=()=>{
+  if(!annexFilesList.length) return toast("Pehle 1-2 saboot upload karo.");
+  toast("Complete Case Bundle tayyar ho raha hai...");
+  
+  // Create printable bundle document
+  const area = $("#printBundleArea");
+  const draftText = $("#paper").innerText;
+  
+  let annexPages = `
+    <div class="print-page-break"></div>
+    <div style="padding:24px;background:#fff;color:#000;font-family:serif">
+      <h2 style="text-align:center;text-decoration:underline">INDEX OF ANNEXURES / DOCUMENTS</h2>
+      <table style="width:100%;border-collapse:collapse;margin-top:20px;font-size:14px" border="1" cellpadding="8">
+        <thead>
+          <tr style="background:#eee"><th>Sl. No.</th><th>Annexure</th><th>Particulars of Document</th></tr>
+        </thead>
+        <tbody>
+          ${annexFilesList.map((a, idx)=>`
+            <tr>
+              <td align="center">${idx+1}</td>
+              <td align="center"><b>${esc(a.tag)}</b></td>
+              <td>${esc(a.title)} (${esc(a.name)})</td>
+            </tr>
+          `).join("")}
+        </tbody>
+      </table>
+    </div>
+  `;
+  
+  annexFilesList.forEach((a, idx)=>{
+    annexPages += `
+      <div class="print-page-break"></div>
+      <div style="padding:24px;background:#fff;color:#000;text-align:center;font-family:serif">
+        <h3 style="border-bottom:2px solid #000;padding-bottom:6px">${esc(a.tag)}</h3>
+        <p style="font-size:16px;font-weight:bold;margin:8px 0">${esc(a.title)}</p>
+        <div style="margin-top:20px">
+          <img src="${a.data}" style="max-width:100%;max-height:650px;object-fit:contain;border:1px solid #ddd">
+        </div>
+      </div>
+    `;
+  });
+
+  area.innerHTML = `
+    <div style="padding:24px;background:#fff;color:#000;white-space:pre-wrap;font-family:Georgia,serif;font-size:12pt;line-height:1.6">
+      ${esc(draftText)}
+    </div>
+    ${annexPages}
+  `;
+  
+  // Trigger system print window with full merged document
+  setTimeout(() => {
+    window.print();
+  }, 250);
+};
+
+// FEATURE 6: WHATSAPP BOT SIMULATOR
+const closeWaModal = () => {
+  const m = $("#waModal");
+  m.hidden = true;
+  m.style.display = "none";
+};
+const openWaModal = () => {
+  const m = $("#waModal");
+  m.hidden = false;
+  m.style.display = "flex";
+  setTimeout(() => $("#waMsgInp").focus(), 50);
+};
+
+$("#waSimBtn").onclick = openWaModal;
+$("#waClose").onclick = closeWaModal;
+$("#waModal").onclick = e => {
+  if (e.target === $("#waModal")) closeWaModal();
+};
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") closeWaModal();
+});
+
+$("#waSendBtn").onclick = () => {
+  const inp = $("#waMsgInp");
+  const msg = inp.value.trim();
+  if (!msg) return;
+  const chat = $("#waChat");
+  chat.innerHTML += `<div class="wa-msg me">${esc(msg)}</div>`;
+  inp.value = "";
+  chat.scrollTop = chat.scrollHeight;
+  setTimeout(() => {
+    const k = classify(msg);
+    const catName = k ? C[k].n : "Legal Complaint";
+    chat.innerHTML += `<div class="wa-msg">Aapka mudda note ho gaya (${catName})! ⚖️<br><br>👉 <b>Section:</b> ${k ? C[k].law[0][0] : 'Consumer Protection Act'}<br>👉 <b>Next Action:</b> 15-day formal legal notice tayyar kar diya gaya hai.<br><br>📄 <a href="#app" onclick="closeWaModal();$('#story').value='${esc(msg)}';$('#n1').click()" style="color:#53bdeb;font-weight:600">Poora PDF draft dekhein aur download karein ↗</a></div>`;
+    chat.scrollTop = chat.scrollHeight;
+  }, 800);
+};
+$("#waMsgInp").onkeypress=e=>{if(e.key==="Enter")$("#waSendBtn").click();};
+
+// BILINGUAL LANGUAGE SWITCHER (HINGLISH <-> ENGLISH)
+let currentSiteLang = localStorage.getItem("nyay_site_lang") || "hinglish";
+
+const UI_LANG = {
+  hinglish: {
+    toggleBtn: "🌐 English",
+    heroH1: "Apni problem bolo.<span>60 second mein complaint ready.</span>",
+    heroSub: "Voice ya text mein batao kya hua. Nyay Saathi 10 Indian bhashaon mein kanoon pehchanta hai aur court-ready draft, evidence bundle aur roadmap deta hai.",
+    btnVoice: "🎤 Bolke shuru karo",
+    btnWrite: "Likhke banao",
+    btnDemo: "▶ 30 second demo",
+    s1Title: "Kya hua? Apne shabdon mein batao",
+    s1Hint: "Hindi, English, Marathi, Tamil, Bengali, Telugu ya Hinglish — mic se apni bhasha mein bolo.",
+    s1Holder: "Jaise: Mere landlord ne 30000 ka security deposit wapas nahi diya… ya koi suspicious notice aaya ho to yahan likho",
+    btnN1: "Aage badho",
+    btnMic: "🎤 Bolke batao",
+    btnScam: "🚨 Fake Notice / Scam Check",
+    s2Title: "Kuch details aur chahiye",
+    lblNm: "Aapka naam",
+    lblPl: "Shehar / jagah",
+    lblDt: "Kab hua?",
+    lblAmt: "Amount (₹, agar ho)",
+    lblLg: "Draft ki bhasha",
+    btnB2: "Peeche",
+    btnN2: "Draft banao",
+    btnDemoFill: "Demo details bharo",
+    s3Title: "Aapka draft tayyar hai",
+    s3Hint: "Draft pe click karke seedha edit kar sakte ho. [____] wali jagah bhar do.",
+    waHolder: "Opposite party ka WhatsApp No. (jaise 9876543210)",
+    btnWa: "💬 WhatsApp notice bhejo",
+    btnEm: "✉️ Email draft",
+    btnPrint: "Print / PDF save",
+    btnListen: "🔊 Sunao",
+    btnCopy: "Copy",
+    btnNextDraft: "Jawab nahi mila? Agla draft",
+    btnNew: "Naya complaint",
+    calBtn: "📅 Phone Calendar mein Reminder lagao",
+    locTitle: "📍 Apne shehar ka Free Vakeel (DLSA) aur Court khojo",
+    locHint: "Apna Pincode ya Shehar daalo. Sarkar dwara muft vakeel (DLSA), Consumer Commission aur Cyber Thana ek click mein milega.",
+    locHolder: "Jaise: 110001, Lucknow, Jaipur, Patna, Indore, Pune...",
+    btnLoc: "Khojo",
+    annexTitle: "📁 Evidence & Annexure Bundle (e-Daakhil / Court Ready)",
+    annexHint: "Saboot (Bill, WhatsApp chat, Bank statement) jodo. Nyay Saathi Annexure A, B, C label dekar ek poora Case Bundle banayega.",
+    dlBundleBtn: "📑 Download Complete Case Bundle (Complaint + Annexures)"
+  },
+  english: {
+    toggleBtn: "🇮🇳 Hinglish",
+    heroH1: "State your legal issue.<span>Complaint ready in 60 seconds.</span>",
+    heroSub: "Explain your grievance via voice or text. Nyay Saathi understands Indian statutes across 10 languages and generates formal court drafts, evidence bundles, and filing roadmaps.",
+    btnVoice: "🎤 Start with Voice",
+    btnWrite: "Write details",
+    btnDemo: "▶ 30-sec demo",
+    s1Title: "What happened? Describe in your own words",
+    s1Hint: "English, Hindi, or any Indian regional language — speak via microphone or type.",
+    s1Holder: "e.g., My landlord refused to refund my ₹30,000 security deposit… or describe a suspicious notice received",
+    btnN1: "Next Step",
+    btnMic: "🎤 Dictate with Mic",
+    btnScam: "🚨 Fake Notice / Scam Inspector",
+    s2Title: "A few more details needed",
+    lblNm: "Your Full Name",
+    lblPl: "City / District",
+    lblDt: "When did it happen?",
+    lblAmt: "Disputed Amount (₹, if any)",
+    lblLg: "Draft Language",
+    btnB2: "Back",
+    btnN2: "Generate Legal Draft",
+    btnDemoFill: "Fill Demo Details",
+    s3Title: "Your legal draft is ready",
+    s3Hint: "Click anywhere on the draft to edit directly. Fill in any blank [____] placeholders.",
+    waHolder: "Opposite party's WhatsApp Number (e.g. 9876543210)",
+    btnWa: "💬 Send WhatsApp Notice",
+    btnEm: "✉️ Email Draft",
+    btnPrint: "Print / Save PDF",
+    btnListen: "🔊 Listen to Roadmap",
+    btnCopy: "Copy Draft",
+    btnNextDraft: "No response? Next Draft",
+    btnNew: "New Complaint",
+    calBtn: "📅 Add Deadline Reminder to Calendar",
+    locTitle: "📍 Find Nearest Free Legal Aid (DLSA) & Courts",
+    locHint: "Enter your Pincode or City. Locate your District Legal Services Authority (DLSA), Consumer Commission, and Cyber Cell in one click.",
+    locHolder: "e.g., 110001, Lucknow, Jaipur, Patna, Indore, Pune...",
+    btnLoc: "Search",
+    annexTitle: "📁 Evidence & Annexure Bundle (e-Daakhil / Court Ready)",
+    annexHint: "Attach supporting evidence (Invoices, WhatsApp chats, Bank statements). Nyay Saathi compiles them into an indexed Annexure bundle.",
+    dlBundleBtn: "📑 Download Complete Case Bundle (Complaint + Annexures)"
+  }
+};
+
+function applySiteLanguage(lang) {
+  const d = UI_LANG[lang] || UI_LANG.hinglish;
+  currentSiteLang = lang;
+  localStorage.setItem("nyay_site_lang", lang);
+
+  $("#langToggleBtn").textContent = d.toggleBtn;
+  $("#heroH1").innerHTML = d.heroH1;
+  $("#heroSub").textContent = d.heroSub;
+  $("#hv").textContent = d.btnVoice;
+  $("#btnWrite").textContent = d.btnWrite;
+  $("#dm").textContent = d.btnDemo;
+
+  $("#s1H2").textContent = d.s1Title;
+  $("#s1Hint").textContent = d.s1Hint;
+  $("#story").placeholder = d.s1Holder;
+  $("#n1").textContent = d.btnN1;
+  $("#mic").textContent = d.btnMic;
+  $("#scamCheckBtn").textContent = d.btnScam;
+
+  $("#s2H2").textContent = d.s2Title;
+  $("#lblNm").textContent = d.lblNm;
+  $("#lblPl").textContent = d.lblPl;
+  $("#lblDt").textContent = d.lblDt;
+  $("#lblAmt").textContent = d.lblAmt;
+  $("#lblLg").textContent = d.lblLg;
+  $("#b2").textContent = d.btnB2;
+  $("#n2").textContent = d.btnN2;
+  $("#demo").textContent = d.btnDemoFill;
+
+  $("#s3H2").innerHTML = `${d.s3Title} <small id="rtag" style="font-weight:400;color:var(--mut);font-size:16px"></small>`;
+  $("#s3Hint").textContent = d.s3Hint;
+  $("#waNum").placeholder = d.waHolder;
+  $("#wa").textContent = d.btnWa;
+  $("#em").textContent = d.btnEm;
+  $("#pr").textContent = d.btnPrint;
+  $("#sy").textContent = d.btnListen;
+  $("#cp").textContent = d.btnCopy;
+  $("#ns").textContent = d.btnNextDraft;
+  $("#nw").textContent = d.btnNew;
+  $("#calBtn").textContent = d.calBtn;
+
+  $("#locH2").textContent = d.locTitle;
+  $("#locHint").textContent = d.locHint;
+  $("#locInp").placeholder = d.locHolder;
+  $("#locBtn").textContent = d.btnLoc;
+
+  $("#annexH3").textContent = d.annexTitle;
+  $("#annexP").textContent = d.annexHint;
+  $("#dlBundle").textContent = d.dlBundleBtn;
+}
+
+$("#langToggleBtn").onclick = () => {
+  const next = currentSiteLang === "hinglish" ? "english" : "hinglish";
+  applySiteLanguage(next);
+  toast(next === "english" ? "Switched to English!" : "Hinglish mein badal gaya!");
+};
+
+// Initialize with saved preference or default Hinglish
+applySiteLanguage(currentSiteLang);
+</script></body></html>
