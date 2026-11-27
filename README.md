@@ -1,4 +1,4 @@
-ai# ⚖️ Nyay Saathi (न्याय साथी)
+# ⚖️ Nyay Saathi (न्याय साथी)
 > **Bolo, complaint ready.** — AI-powered citizen legal drafting & redressal platform for India.
 
 Live Production URL: **[https://nyay-saathi-eight.vercel.app](https://nyay-saathi-eight.vercel.app)**
